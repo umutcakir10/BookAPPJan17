@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BookAPP.Pages.MainPage"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="LightBlue">
+
+    <Grid RowDefinitions="Auto, *, Auto"
+          Padding="15, 25">
+
+
+        <Image Grid.Row="1"
+               Source="logo.png"
+               HeightRequest="250"
+               WidthRequest="250"
+               VerticalOptions="Center"
+               HorizontalOptions="Center"/>
+
+        <VerticalStackLayout Grid.Row="2"
+                             Spacing="15">
+
+            <Border StrokeShape="RoundRectangle 25"
+                    StrokeThickness="0"
+                    BackgroundColor="LightSeaGreen"
+                    HeightRequest="50">
+
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+
+                </Border.GestureRecognizers>
+
+                <HorizontalStackLayout HorizontalOptions="Center"
+                                       VerticalOptions="Center"
+                                       Spacing="10"
+                                       Padding="0, 5">
+                    <Label Text=" Hadi göz atmaya başla"
+                           VerticalOptions="Center"
+                           FontSize="18"/>
+
+
+                </HorizontalStackLayout>
+
+            </Border>
+
+        </VerticalStackLayout>
+    </Grid>
+
+</ContentPage> 

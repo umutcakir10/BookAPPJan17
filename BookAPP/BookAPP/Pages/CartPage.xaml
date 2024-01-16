@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BookAPP.Pages.CartPage"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:vm="clr-namespace:BookAPP.ViewModels"
+             xmlns:models="clr-namespace:BookAPP.Models"
+             Title="Sepetim"
+             x:DataType="vm:CartViewModel"
+             BackgroundColor="LightBlue">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Sepeti Temizle"
+                     Command="{Binding ClearCartCommand}"/>
+
+    </ContentPage.ToolbarItems>
+    <Grid>
+        <ScrollView>
+            <VerticalStackLayout Padding="10">
+
+                <CollectionView ItemsSource="{Binding Items}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical"
+                                   ItemSpacing="10"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.EmptyView>
+
+                        <VerticalStackLayout HorizontalOptions="Center"
+                                             VerticalOptions="Center"
+                                             Spacing="15">
+                            <BoxView HeightRequest="100"
+                                     Color="Transparent"/>
+                            <Label Text="Sepette ürün bulunmuyor"
+                                   FontSize="25"
+                                   TextColor="Gray"
+                                   HorizontalTextAlignment="Center">
+                            </Label>
+                            <Button Text="Aradığın tüm kitapları keşfet"
+                                    HorizontalOptions="Center"
+                                    BackgroundColor="LightSeaGreen"
+                                    Clicked="Button_Clicked"
+                                    />
+
+                        </VerticalStackLayout>
+                    </CollectionView.EmptyView>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:Book">
+                            <Border StrokeShape="Rectangle 15"
+                            StrokeThickness="0"
+                            BackgroundColor="White"
+                            Padding="10">
+                                <Grid ColumnDefinitions="25, Auto, 50, *, 80, 25">
+                                    <Label Grid.Column="0"
+                                   Text="{Binding CartQuantity}"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center"
+                                   FontSize="18"
+                                   FontAttributes="Bold"/>
+                                    <Label Grid.Column="1"
+                                   Text="x"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center"
+                                   FontSize="18"
+                                   FontAttributes="Bold"/>
+                                    <Image Grid.Column="2"
+                                   Source="{Binding Image}"
+                                   HeightRequest="25"
+                                   WidthRequest="25"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center"/>
+                                    <VerticalStackLayout Grid.Column="3"
+                                                 VerticalOptions="Center"
+                                                 Spacing="2">
+                                        <Label Text="{Binding Name}"/>
+                                        <Label Text="{Binding Price, StringFormat='₺{0:N2}'}"
+                                       FontSize="12"/>
+
+                                    </VerticalStackLayout>
+
+                                    <Label Grid.Column="4"
+                                   Text="{Binding Amount, StringFormat='₺{0:N2}'}"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center"
+                                   FontSize="15"
+                                   FontAttributes="Bold"/>
+                                    <Image Grid.Column="5"
+                                   Source="trashhh.png"
+                                   HeightRequest="25"
+                                   WidthRequest="25"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="End">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={x:RelativeSource  AncestorType={x:Type vm:CartViewModel}}, Path=RemoveCartItemCommand}"
+                                                          CommandParameter="{Binding Name}"/>
+                                        </Image.GestureRecognizers>
+                                    </Image>
+                                </Grid>
+
+                            </Border>
+                        </DataTemplate>
+
+                    </CollectionView.ItemTemplate>
+
+                </CollectionView>
+
+            </VerticalStackLayout>
+
+        </ScrollView>
+        <Border StrokeShape="RoundRectangle 40"
+                BackgroundColor="LightBlue"
+                StrokeThickness="0"
+                VerticalOptions="End"
+                Margin="5"
+                Padding="10">
+            <Grid ColumnDefinitions="*, *">
+                <Label Grid.Column="0"
+                       Padding="18, 0"
+                       TextColor="White"
+                       VerticalOptions="Center"
+                       >
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Sepet Toplam Tutarı: &#10;"
+                                  FontSize="18"/>
+                            <Span Text="{Binding TotalAmount, StringFormat='₺{0:N2}'}"
+                                  FontSize="20"
+                                  FontAttributes="Bold"
+/>
+                        </FormattedString>
+
+                    </Label.FormattedText>
+
+                </Label>
+
+                <Button Grid.Column="1"
+                        Text="Siparişini Tamamla"
+                        BackgroundColor="LightSeaGreen"
+                        CornerRadius="22"
+                        VerticalOptions="Center"
+                        HorizontalOptions="End"
+                        Padding="25, 10"
+                        Command="{Binding PlaceOrderCommand}"/>
+            </Grid>
+
+        </Border>
+    </Grid>
+
+</ContentPage>

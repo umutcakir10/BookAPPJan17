@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:vm="clr-namespace:BookAPP.ViewModels"
+             xmlns:models="clr-namespace:BookAPP.Models"
+             x:Class="BookAPP.Pages.HomePage"
+             Title="Kitap Dünyası"
+             Padding="15"
+             x:DataType="vm:HomeViewModel">
+    <ScrollView>
+        <VerticalStackLayout Spacing="10">
+            <Border StrokeShape="RoundRectangle 25"
+        StrokeThickness="2"
+        Stroke="LightBlue">
+                <Label Text="Buradan arayın..."
+           TextColor="LightBlue"
+           Padding="10, 14"/>
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoToAllBooksPageCommand}"
+                              CommandParameter="{x:Boolean true}"/>
+
+                </Border.GestureRecognizers>
+            </Border>
+            
+
+            <BoxView HeightRequest="15"
+                     Color="Transparent"/>
+
+            <Grid ColumnDefinitions="*, *">
+                <Label Grid.Column="0"
+                       Text="En Çok Satanlar"
+                       VerticalOptions="End"
+                       FontSize="20"
+                       FontAttributes="Bold"/>
+                <Label Grid.Column="1"
+                       Text="Hepsini görüntüle"
+                       FontSize="20"
+                       FontAttributes="Bold"
+                       HorizontalOptions="End"
+                       VerticalOptions="End">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoToAllBooksPageCommand}"
+                                              CommandParameter="{x:Boolean false}"/>
+
+                    </Label.GestureRecognizers>
+
+                </Label>
+            </Grid>
+
+            <FlexLayout BindableLayout.ItemsSource="{Binding Books}"
+                        Wrap="Wrap">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="models:Book">
+                        <Border FlexLayout.Basis="50%"
+                                StrokeShape="Rectangle 10"
+                                StrokeThickness="0"
+                                BackgroundColor="LightBlue"
+                                Padding="10"
+                                Margin="2">
+                            <Grid RowDefinitions="150, Auto, auto, Auto"
+                                  RowSpacing="5">
+
+                                <Image Grid.Row="0"
+                                       Source="{Binding Image}"
+                                       HeightRequest="150"
+                                       WidthRequest="130"/>
+
+                                <Label Grid.Row="1"
+                                       Text="{Binding Name}"
+                                       HorizontalOptions="Center"
+                                       FontSize="20"
+                                       />
+
+                                <Grid Grid.Row="2"
+                                      ColumnDefinitions="*, *">
+                                    <Label Grid.Column="0"
+                                           Text="{Binding Price, StringFormat='₺{0:N2}'}"
+                                           VerticalOptions="Center"
+                                           FontAttributes="Bold"/>
+                                    
+                                </Grid>
+                                <Button Grid.Row="3"
+                                        Text="Detay"
+                                        BackgroundColor="LightSeaGreen"
+                                        TextColor="Black"
+                                        CornerRadius="0"
+                                        FontAttributes="Bold"
+                                        VerticalOptions="End"
+                                        HorizontalOptions="Center"
+                                        Padding="25, 0"
+                                        Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=GoToDetailsPageCommand}"
+                                                                      CommandParameter="{Binding .}"/>
+                            </Grid>
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=GoToDetailsPageCommand}"
+                                                                      CommandParameter="{Binding .}"/>
+
+                            </Border.GestureRecognizers>
+                        </Border>
+
+                    </DataTemplate>
+
+                </BindableLayout.ItemTemplate>
+
+            </FlexLayout>
+            <Border StrokeShape="Rectangle 10"
+        StrokeThickness="0"
+        BackgroundColor="LightBlue"
+        VerticalOptions="Start"
+        Padding="15">
+                <Grid ColumnDefinitions="*, 150"
+          RowDefinitions="*, Auto">
+                    <VerticalStackLayout Grid.Row="0"
+                             Grid.Column="0"
+                             Spacing="10">
+                        <Label Text="Tüm yorumlar burada!"
+                 FontSize="25"
+                 FontAttributes="Bold"
+                 VerticalOptions="Center"/>
+                        <Label Text="Uygulama ve kitaplarla ilgili yorumlarınız bizim için değerli. Hadi sen de yorumlara göz at ve istersen bir yorum ekle!"/>
+
+                    </VerticalStackLayout>
+                    <Button Grid.Row="1"
+                Grid.Column="0"
+                Text="Yorumlar"
+                Clicked="commentpageclicked"
+                BackgroundColor="LightSeaGreen"
+                TextColor="Black"
+                FontAttributes="Bold"
+                CornerRadius="22"
+                HorizontalOptions="Center"
+                Padding="50, 0"/>
+                    <Image Grid.RowSpan="2"
+                Grid.Column="1"
+               Source="yorumm.png"
+               HeightRequest="150"
+               WidthRequest="150"/>
+                </Grid>
+
+            </Border>
+
+        </VerticalStackLayout>
+
+    </ScrollView>
+</ContentPage>

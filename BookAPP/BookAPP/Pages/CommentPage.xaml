@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="BookAPP.Pages.CommentPage"
+             Title="Yorumlar"
+             BackgroundColor="LightBlue">
+
+    <StackLayout Padding="20">
+        
+        <Label Text="Kullanıcı Yorumları" FontSize="Large" HorizontalOptions="Center"/>
+
+        
+        <CollectionView x:Name="commentsCollection">
+            <CollectionView.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>"Çok faydalı bir uygulama, teşekkürler!" - Ali Kutlu</x:String>
+                    <x:String>"Kullanımı basit ve etkili." - Ayşe Yılmaz</x:String>
+                    <x:String>"Beklentilerimi karşıladı, öneririm." - Ahmet Şahin</x:String>
+                    <x:String>"Aradığım tüm kitapları burada buluyorum." - Umut Çakır</x:String>
+                    <x:String>"Gerçekten çok pratik bir deneyim sunuyor" - Kubilay Alkan</x:String>
+                    <x:String>"Teslimat süresi gerçekten beklentilerimi karşıladı, teşekkürler" - Ece Yıldırım</x:String>
+                </x:Array>
+            </CollectionView.ItemsSource>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame BorderColor="Black" Padding="10" Margin="5">
+                        <Label Text="{Binding .}" />
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        
+        <Entry x:Name="commentEntry" Placeholder="Yorumunuzu buraya yazın"/>
+
+        
+        <Button Text="Gönder"/>
+        <Button Text="Geri dön"
+                Clicked="geridönclicked"/>
+    </StackLayout>
+</ContentPage>
